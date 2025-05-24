@@ -48,3 +48,34 @@ Thumbs.db
 
 # ─── ESLint Cache ─────────────────────────────────────
 .eslintcache
+
+# ─── Media Files ──────────────────────────────────────
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.svg
+*.webp
+*.ico
+
+# ─── Music Files ──────────────────────────────────────
+*.mp3
+*.wav
+*.flac
+*.aac
+*.ogg
+*.m4a
+*.wma
+*.alac
+*.aiff
+
+# ─── Video Files ──────────────────────────────────────
+*.mp4
+*.mov
+*.avi
+*.wmv
+*.flv
+*.mkv
+*.webm
+*.m4v

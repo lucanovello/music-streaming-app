@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { clerkMiddleware } from "@clerk/express";
 import fileUpload from "express-fileupload";
 import path from "path";
+import cors from "cors";
 import adminRoutes from "./routes/adminRoutes.js";
 import albumRoutes from "./routes/albumRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -14,10 +15,15 @@ import { connectDB } from "./lib/db.js";
 dotenv.config();
 
 const __dirname = path.resolve();
-
+const app = express();
 const PORT = process.env.PORT || 5000;
 
-const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(clerkMiddleware());
@@ -27,7 +33,6 @@ app.use(
     tempFileDir: path.join(__dirname, "tmp"),
     createParentPath: true,
     limits: { fileSize: 10 * 1024 * 1024 }, // 10 MB
-    abortOnLimit: true,
   })
 );
 

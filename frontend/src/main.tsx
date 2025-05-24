@@ -20,6 +20,6 @@ createRoot(document.getElementById("root")!).render(
           <App />
         </BrowserRouter>
       </AuthProvider>
-    </ClerkProvider>{" "}
+    </ClerkProvider>
   </StrictMode>
 );

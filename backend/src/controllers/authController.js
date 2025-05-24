@@ -1,21 +1,25 @@
-import { User } from "../models/user.js";
+import { User } from "../models/userModel.js";
 
 export const authCallback = async (req, res, next) => {
   try {
     const { id, firstName, lastName, imageUrl } = req.body;
 
+    // check if user already exists
     const user = await User.findOne({ clerkId: id });
+
     if (!user) {
+      // signup
       await User.create({
+        clerkId: id,
         firstName,
         lastName,
-        imageUrl: imageUrl,
-        clerkId: id,
+        imageUrl,
       });
-      return res.status(201).json({ message: "User created successfully" });
     }
+
+    res.status(200).json({ success: true });
   } catch (error) {
-    console.error("Error in authCallback:", error);
+    console.log("Error in auth callback", error);
     next(error);
   }
 };

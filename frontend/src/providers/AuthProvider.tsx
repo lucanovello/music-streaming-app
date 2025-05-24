@@ -3,17 +3,14 @@ import { useAuth } from "@clerk/clerk-react";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 
+const updateApiToken = (token: string | null) => {
+  if (token) {
+    axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  } else {
+    delete axiosInstance.defaults.headers.common["Authorization"];
+  }
+};
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const updateApiToken = (token: string | null) => {
-    if (token) {
-      axiosInstance.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${token}`;
-    } else {
-      delete axiosInstance.defaults.headers.common["Authorization"];
-    }
-  };
-
   const { getToken } = useAuth();
   const [loading, setLoading] = useState(true);
 
@@ -22,12 +19,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         const token = await getToken();
         updateApiToken(token);
-
-        if (token) {
-          console.log("Token fetched successfully:", token);
-        } else {
-          console.log("No token found");
-        }
       } catch (error: any) {
         updateApiToken(null);
         console.error("Error in auth provider:", error);
@@ -35,7 +26,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setLoading(false);
       }
     };
-
     initAuth();
   }, [getToken]);
 
@@ -47,7 +37,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 export default AuthProvider;
